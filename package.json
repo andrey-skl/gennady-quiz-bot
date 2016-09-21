@@ -20,6 +20,10 @@
   "bugs": {
     "url": "https://github.com/huston007/gennady-quiz-bot/issues"
   },
+  "engineStrict" : true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "homepage": "https://github.com/huston007/gennady-quiz-bot#readme",
   "dependencies": {
     "fast-csv": "^2.1.0",
