@@ -20,7 +20,7 @@ bot.getMe()
         return questionsDatabase('./questions-database/questions-test.txt');
     })
     .then(questions => {
-        console.log('Questions has been loaded', questions);
+        console.log('Questions has been loaded, there are ', questions.length, 'questions.');
 
         bot.on('text', msg => {
             if (msg.text !== 'Гена, дай вопрос') {
