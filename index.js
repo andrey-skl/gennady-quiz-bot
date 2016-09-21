@@ -1,20 +1,12 @@
 var TelegramBot = require('node-telegram-bot-api');
+//NOTE: You should get this file from one of our team
 var BOT_API_TOKEN = require('./BOT_API_KEY.json').key;
 
-// Setup polling way
-var bot = new TelegramBot(BOT_API_TOKEN, {polling: true});
-
-// Matches /echo [whatever]
-bot.onText(/\/echo (.+)/, function (msg, match) {
-    var fromId = msg.from.id;
-    var resp = match[1];
-    bot.sendMessage(fromId, resp);
-});
+const bot = new TelegramBot(BOT_API_TOKEN, {polling: true});
 
 // Any kind of message
-bot.on('message', function (msg) {
+bot.on('message', msg => {
     var chatId = msg.chat.id;
-    // photo can be: a file path, a stream or a Telegram file_id
-    var photo = 'cats.png';
-    bot.sendPhoto(chatId, photo, {caption: 'Lovely kittens'});
+
+    bot.sendMessage(chatId, 'Hello!');
 });
