@@ -16,6 +16,6 @@ addTrollingMessages(bot);
 bot.on('message', msg => {
     console.log('Message received|', msg.from.username, msg.text);
     if (msg.text.indexOf('Гена') !== -1) {
-        bot.sendMessage(msg.chat.id, `Отстань от меня, ${msg.from.username}!!`);
+        bot.sendMessage(msg.chat.id, `Отстань от меня, ${msg.from.first_name}!!`);
     }
 });
