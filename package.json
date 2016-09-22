@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "start-prod": "node index.js --prod",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/*"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/huston007/gennady-quiz-bot/issues"
   },
-  "engineStrict" : true,
+  "engineStrict": true,
   "engines": {
     "node": ">=6.0.0"
   },
@@ -29,5 +29,11 @@
   "dependencies": {
     "fast-csv": "^2.1.0",
     "node-telegram-bot-api": "0.23.3"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.0.2",
+    "sinon": "1.17.6",
+    "sinon-chai": "2.8.0"
   }
 }
