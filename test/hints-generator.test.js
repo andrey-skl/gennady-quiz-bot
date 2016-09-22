@@ -7,8 +7,6 @@ describe('Hints Generator', function() {
   const hidden = hintsGenerator.HINT_PLACEHOLER;
   const fiveLettersEmptyHint = `${hidden}${hidden}${hidden}${hidden}${hidden}`;
 
-  let sandbox;
-
   beforeEach(() => {
     this.sinon = sinon.sandbox.create();
   });
