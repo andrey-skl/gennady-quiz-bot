@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const questionsDatabase = require('./lib/questions-database');
 const addTrollingMessages = require('./lib/trolling-messages');
 const botMessagesLogger = require('./lib/bot-messages-logger');
-
+const Game = require('./lib/Game');
 
 //NOTE: You should get this file from one of our team
 const BOT_API_TOKEN = require('./BOT_API_KEY.json').key;
@@ -20,7 +20,9 @@ const jjj = {
   'prncd ': 'Датский',
   'artemtiunov': 'Тёма',
   'leonsabr': 'Лёня',
-  'katriyna': 'Катя'
+  'katriyna': 'Катя',
+  'thegirl ': 'Натусик',
+  'vandrianova ': 'Лера'
 };
 
 bot.getMe()
@@ -41,50 +43,21 @@ bot.getMe()
               msg.from.jjj = msg.from.first_name;
             }
 
-            const chatId = msg.chat.id;
-            let game = games[chatId];
+            let game = games[msg.chat.id];
 
             if (!game) {
-              game = games[chatId] = {};
-              game.status = 'new';
+              game = games[msg.chat.id] = new Game(bot, msg.chat, questions);
             }
 
             if (['new', 'stopped'].includes(game.status)) {
               if (msg.text === '/start') {
-                game.status = 'inprogress';
-                console.log('Game started');
-
-                game.questionId = Math.floor(Math.random() * questions.length);
-                const question = questions[game.questionId];
-
-                bot.sendMessage(chatId, 'Понеслась!').then(() => {
-                  bot.sendMessage(chatId, `«${question.question}»`);
-                  console.log('Question sent', question.answer);
-                });
+                game.start(msg.from);
               }
             } else if (['inprogress'].includes(game.status)) {
               if (msg.text === '/stop') {
-                game.status = 'stopped';
-                console.log('Game stopped');
-
-                bot.sendMessage(chatId, `${msg.from.jjj}(((`);
-                return;
-              }
-
-              const question = questions[game.questionId];
-
-              console.log('Answer received', question.answer, msg.text);
-
-              if (question.answer === msg.text) {
-                bot.sendMessage(chatId, `Да, ${msg.from.jjj}! Ещё!`, {reply_to_message_id: msg.message_id}).then(() => {
-                  game.questionId = Math.floor(Math.random() * questions.length);
-                  const newQuestion = questions[game.questionId];
-
-                  bot.sendMessage(chatId, `«${newQuestion.question}»`);
-                  console.log('Question sent', question.question);
-                });
+                game.stop(msg.from);
               } else {
-                //bot.sendMessage(chatId, 'нет :(');
+                game.onAnswer(msg);
               }
             }
         });
