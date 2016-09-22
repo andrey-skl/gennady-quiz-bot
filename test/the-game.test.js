@@ -6,7 +6,7 @@ const Game = require('../lib/the-game');
 const HINTS_DELAY = 10000;
 const NEW_QUESTION_DELAY = 5000;
 
-describe('The Game', () => {
+describe('The Game', function () {
   let fakeBot;
   let fakeQuestions = [{question: 'foo', answer: 'bar'}];
   let fakeChat = {
@@ -23,6 +23,8 @@ describe('The Game', () => {
     this.sinon = sinon.sandbox.create();
     clock = this.sinon.useFakeTimers();
   });
+
+  afterEach(() => this.sinon.restore());
 
   it('should include', () => Game.should.be.defined);
 
