@@ -1,16 +1,12 @@
-const chai = require('chai');
+require('./chai-setup');
 const sinon = require('sinon');
-var sinonChai = require("sinon-chai");
-
-chai.should();
-chai.use(sinonChai);
 
 const Game = require('../lib/the-game');
 
 const HINTS_DELAY = 10000;
 const NEW_QUESTION_DELAY = 5000;
 
-describe('Game Test', () => {
+describe('The Game', () => {
   let fakeBot;
   let fakeQuestions = [{question: 'foo', answer: 'bar'}];
   let fakeChat = {
