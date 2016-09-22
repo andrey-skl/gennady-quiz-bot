@@ -55,6 +55,8 @@ bot.getMe()
       } else if (['inprogress'].includes(game.status)) {
         if (['/stop', '.ыещз'].includes(msg.text)) {
           game.stop(msg.from);
+        } else if (['/skip', '.ылшз'].includes(msg.text)) {
+          game.skip(msg.from);
         } else {
           game.onAnswer(msg);
         }
