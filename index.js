@@ -42,6 +42,8 @@ bot.getMe()
       } else if ([Game.STATUS.INPROGRESS].includes(game.status)) {
         if (['/stop', '.ыещз'].includes(msg.text)) {
           game.stop();
+          game.destroy();
+          games[msg.chat.id] = null;
         } else if (['/skip', '.ылшз'].includes(msg.text)) {
           game.skip();
         } else {
