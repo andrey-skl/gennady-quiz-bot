@@ -4,6 +4,9 @@ const addTrollingMessages = require('./lib/trolling-messages');
 const botMessagesLogger = require('./lib/bot-messages-logger');
 const Game = require('./lib/the-game');
 
+const isDev = process.argv.indexOf('--prod') === -1;
+const config = isDev ? require('./config-dev.json') : require('./config-prod.json');
+
 const games = {};
 
 //NOTE: You should get this file from one of our team
@@ -19,7 +22,7 @@ bot.getMe()
     addTrollingMessages(bot);
     botMessagesLogger(bot);
 
-    return questionsDatabase('./questions-database/questions.txt');
+    return questionsDatabase(config.database);
   })
   .then(questions => {
     console.log('Questions have been loaded, there are ', questions.length, 'questions.');
