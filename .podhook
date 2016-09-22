@@ -1,0 +1,2 @@
+npm prune
+npm install
