@@ -20,7 +20,7 @@ bot.getMe()
     addTrollingMessages(bot);
     botMessagesLogger(bot);
 
-    return Promise.all(config.databases.map(path => questionsDatabase(path)))
+    return Promise.all(config.databases.map(path => questionsDatabase(require.resolve(path))))
       .then((parts) => [].concat.apply([], parts))
   })
   .then(questions => {
