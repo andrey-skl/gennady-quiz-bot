@@ -19,7 +19,7 @@ bot.getMe()
     addTrollingMessages(bot);
     botMessagesLogger(bot);
 
-    return questionsDatabase('./questions-database/questions.txt');
+    return questionsDatabase('./questions-database/questions-test.txt');
   })
   .then(questions => {
     console.log('Questions have been loaded, there are ', questions.length, 'questions.');
