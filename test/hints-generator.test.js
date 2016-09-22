@@ -6,6 +6,8 @@ describe('Hints Generator', function() {
   const generate = hintsGenerator.generateNextHint;
   const hidden = hintsGenerator.HINT_PLACEHOLER;
   const fiveLettersEmptyHint = `${hidden}${hidden}${hidden}${hidden}${hidden}`;
+  const answer = 'ooooo';
+  const hintsCount = 5;
 
   beforeEach(() => {
     this.sinon = sinon.sandbox.create();
@@ -13,9 +15,31 @@ describe('Hints Generator', function() {
 
   afterEach(() => this.sinon.restore());
 
-  it('should generate initial hint', () => generate('', 'foooo').should.equal(fiveLettersEmptyHint));
+  const countChars = (string, char) => (string.split(char).length - 1);
 
-  it('should open at least 1 letter for second hint', () => {
-    generate(fiveLettersEmptyHint, 'ooooo').should.contain('o');
+  it('should generate initial hint', () => generate('', answer, hintsCount).should.equal(fiveLettersEmptyHint));
+
+  it('should open exactly 1 letter for second hint', () => {
+    const hint = generate(fiveLettersEmptyHint, answer, hintsCount);
+    countChars(hint, 'o').should.equal(1);
+  });
+
+  it('should open exactly 2 letter for third hint', () => {
+    const firstHint = generate(fiveLettersEmptyHint, answer, hintsCount);
+    const hint = generate(firstHint, answer, hintsCount);
+    countChars(hint, 'o').should.equal(2);
+  });
+
+  it('should open exactly 4 letter for third hint', () => {
+    const firstHint = generate(fiveLettersEmptyHint, answer, hintsCount);
+    const secondHint = generate(firstHint, answer, hintsCount);
+    const thirdHint = generate(secondHint, answer, hintsCount);
+    const fourhHint = generate(thirdHint, answer, hintsCount);
+    countChars(fourhHint, 'o').should.equal(4);
+  });
+
+  it('should open exactly 2 letter in first hint of 10-letter word', () => {
+    const firstHint = generate(fiveLettersEmptyHint + fiveLettersEmptyHint, answer + answer, hintsCount);
+    countChars(firstHint, 'o').should.equal(2);
   });
 });
