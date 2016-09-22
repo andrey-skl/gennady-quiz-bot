@@ -44,17 +44,16 @@ bot.getMe()
       }
 
       let game = games[msg.chat.id];
-
       if (!game) {
         game = games[msg.chat.id] = new Game(bot, msg.chat, questions);
       }
 
       if (['new', 'stopped'].includes(game.status)) {
-        if (msg.text === '/start') {
+        if (['/start', '.ыефке'].includes(msg.text)) {
           game.start(msg.from);
         }
       } else if (['inprogress'].includes(game.status)) {
-        if (msg.text === '/stop') {
+        if (['/stop', '.ыещз'].includes(msg.text)) {
           game.stop(msg.from);
         } else {
           game.onAnswer(msg);
