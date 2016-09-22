@@ -42,4 +42,9 @@ describe('Hints Generator', function() {
     const firstHint = generate(fiveLettersEmptyHint + fiveLettersEmptyHint, answer + answer, hintsCount);
     countChars(firstHint, 'o').should.equal(2);
   });
+
+  it('should open 2 letters if 2 tries only', function () {
+    const hint = generate(fiveLettersEmptyHint, answer, 2);
+    countChars(hint, 'o').should.equal(2);
+  });
 });
