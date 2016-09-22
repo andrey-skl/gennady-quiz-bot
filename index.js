@@ -6,18 +6,6 @@ const Game = require('./lib/Game');
 
 const games = {};
 
-const jjj = {
-  'huston007': 'Андрей',
-  'vomixamxam': 'Макс',
-  'nightflash13': 'Макс',
-  'prncd ': 'Датский',
-  'artemtiunov': 'Тёма',
-  'leonsabr': 'Лёня',
-  'katriyna': 'Катя',
-  'thegirl ': 'Натусик',
-  'vandrianova ': 'Лера'
-};
-
 //NOTE: You should get this file from one of our team
 const BOT_API_TOKEN = require('./BOT_API_KEY.json').key;
 
@@ -37,12 +25,6 @@ bot.getMe()
     console.log('Questions have been loaded, there are ', questions.length, 'questions.');
 
     bot.on('text', msg => {
-      if (msg.from.username in jjj) {
-        msg.from.jjj = jjj[msg.from.username];
-      } else {
-        msg.from.jjj = msg.from.first_name;
-      }
-
       let game = games[msg.chat.id];
       if (!game) {
         game = games[msg.chat.id] = new Game(bot, msg.chat, questions);
