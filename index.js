@@ -52,7 +52,7 @@ bot.getMe()
 
       if (['new', 'stopped'].includes(game.status)) {
         if (['/start', '.ыефке'].includes(msg.text)) {
-          game.start();
+          game.start(10);
         }
       } else if (['inprogress'].includes(game.status)) {
         if (['/stop', '.ыещз'].includes(msg.text)) {
