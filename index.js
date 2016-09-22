@@ -20,7 +20,8 @@ bot.getMe()
     addTrollingMessages(bot);
     botMessagesLogger(bot);
 
-    return questionsDatabase(config.database);
+    return Promise.all(config.databases.map(path => questionsDatabase(path)))
+      .then((parts) => [].concat.apply([], parts))
   })
   .then(questions => {
     console.log('Questions have been loaded, there are ', questions.length, 'questions.');

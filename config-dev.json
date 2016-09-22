@@ -1,3 +1,5 @@
 {
-  "database": "./questions-database/questions-test.txt"
+  "databases": [
+    "./questions-database/questions-test.txt"
+  ]
 }

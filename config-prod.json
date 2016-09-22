@@ -1,3 +1,8 @@
 {
-  "database": "./questions-database/questions.txt"
+  "databases": [
+    "./questions-database/questions_1.txt",
+    "./questions-database/questions_2.txt",
+    "./questions-database/questions_3.txt",
+    "./questions-database/questions_4.txt"
+  ]
 }
