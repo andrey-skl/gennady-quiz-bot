@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const questionsDatabase = require('./lib/questions-database');
 const addTrollingMessages = require('./lib/trolling-messages');
 const botMessagesLogger = require('./lib/bot-messages-logger');
-const Game = require('./lib/Game');
+const Game = require('./lib/the-game');
 
 const games = {};
 
