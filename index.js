@@ -31,7 +31,7 @@ bot.getMe()
     addTrollingMessages(bot);
     botMessagesLogger(bot);
 
-    return questionsDatabase('./questions-database/questions-test.txt');
+    return questionsDatabase('./questions-database/questions.txt');
   })
   .then(questions => {
     console.log('Questions have been loaded, there are ', questions.length, 'questions.');
@@ -48,15 +48,17 @@ bot.getMe()
         game = games[msg.chat.id] = new Game(bot, msg.chat, questions);
       }
 
+      game.setCurrentPlayer(msg.from);
+
       if (['new', 'stopped'].includes(game.status)) {
         if (['/start', '.ыефке'].includes(msg.text)) {
-          game.start(msg.from);
+          game.start();
         }
       } else if (['inprogress'].includes(game.status)) {
         if (['/stop', '.ыещз'].includes(msg.text)) {
-          game.stop(msg.from);
+          game.stop();
         } else if (['/skip', '.ылшз'].includes(msg.text)) {
-          game.skip(msg.from);
+          game.skip();
         } else {
           game.onAnswer(msg);
         }
