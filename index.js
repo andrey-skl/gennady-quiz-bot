@@ -11,7 +11,7 @@ const BOT_API_TOKEN = require('./BOT_API_KEY.json').key;
 
 const bot = new TelegramBot(BOT_API_TOKEN, {polling: true});
 
-console.log('Authorizing and initializing the bot...');
+console.log('Authorizing and initializing Gennady...');
 
 bot.getMe()
   .then(me => {
