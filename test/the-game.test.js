@@ -50,6 +50,18 @@ describe('The Game', function () {
     game.send.should.have.been.calledWith('1. foo');
   });
 
+  it('should ignore /skip after game finish', () => {
+    const game = createGame();
+    game.start(3);
+    game.end();
+
+    this.sinon.stub(game, 'sendNewQuestion');
+
+    game.skip();
+
+    game.sendNewQuestion.should.not.have.been.called;
+  });
+
   it('should accept correct answers', () => {
     const game = createGame();
     this.sinon.stub(game, 'replyOn').returns(Promise.resolve());
