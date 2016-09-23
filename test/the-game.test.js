@@ -48,6 +48,31 @@ describe('The Game', function () {
     fakeBot.sendMessage.should.have.been.calledWith(fakeChat.id, '1. foo');
   });
 
+  it('should accept correct answers', () => {
+    const game = createGame();
+    this.sinon.stub(game, 'replyOn').returns(Promise.resolve());
+    game.start(3);
+    game.setCurrentPlayer({id: 'player'});
+    game.sendNewQuestion();
+
+    game.checkAnswer({text: fakeQuestions[0].answer});
+
+    game.currentPlayer.score.should.equal(1);
+    game.replyOn.should.have.been.called;
+  });
+
+  it('should not accept answers after one correct answer', () => {
+    const game = createGame();
+    game.start(3);
+    game.setCurrentPlayer({id: 'player'});
+    game.sendNewQuestion();
+
+    game.checkAnswer({text: fakeQuestions[0].answer});
+    game.checkAnswer({text: fakeQuestions[0].answer});
+
+    game.currentPlayer.score.should.equal(1);
+  });
+
   it('should send question after delay', () => {
     const game = createGame();
     this.sinon.stub(game, 'sendNewQuestion');

@@ -1,4 +1,4 @@
 node_modules
 *.log
-BOT_API_KEY.json
+BOT_API_KEY*.json
 .idea
