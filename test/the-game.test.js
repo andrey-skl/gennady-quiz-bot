@@ -5,6 +5,7 @@ const Game = require('../lib/the-game');
 
 const HINTS_DELAY = 10000;
 const NEW_QUESTION_DELAY = 5000;
+const MESSAGE_TYPING_DELAY = 1000;
 
 describe('The Game', function () {
   let fakeBot;
@@ -18,7 +19,8 @@ describe('The Game', function () {
 
   beforeEach(() => {
     fakeBot = {
-      sendMessage: sinon.stub().returns(Promise.resolve())
+      sendMessage: sinon.stub().returns(Promise.resolve()),
+      sendChatAction: sinon.stub().returns(Promise.resolve())
     };
     this.sinon = sinon.sandbox.create();
     clock = this.sinon.useFakeTimers();
@@ -37,15 +39,15 @@ describe('The Game', function () {
 
     game.numberOfQuestions.should.equal(3);
     game.status.should.equal(Game.STATUS.INPROGRESS);
-    fakeBot.sendMessage.should.have.been.called;
   });
 
   it('should send question', () => {
     const game = createGame();
+    this.sinon.stub(game, 'send').returns(Promise.resolve());
     game.start(3);
     game.sendNewQuestion();
 
-    fakeBot.sendMessage.should.have.been.calledWith(fakeChat.id, '1. foo');
+    game.send.should.have.been.calledWith('1. foo');
   });
 
   it('should accept correct answers', () => {
@@ -84,7 +86,7 @@ describe('The Game', function () {
 
   it('should generate the first ****-like hint', () => {
     const game = createGame();
-
+    this.sinon.stub(game, 'send').returns(Promise.resolve());
     game.runHintsSequence(fakeQuestions[0]);
 
     game.currentHint.should.equal('');
@@ -92,6 +94,6 @@ describe('The Game', function () {
     clock.tick(HINTS_DELAY + 1000);
 
     game.currentHint.should.equal('•••');
-    fakeBot.sendMessage.should.have.been.calledWith(fakeChat.id, 'Подсказка: •••');
+    game.send.should.have.been.calledWith('Подсказка: •••');
   });
 });
