@@ -4,6 +4,7 @@ const hintsGenerator = require('../lib/hints-generator');
 
 describe('Hints Generator', function() {
   const generate = hintsGenerator.generateNextHint;
+  const getHintsCount = hintsGenerator.getHintsCount;
   const hidden = hintsGenerator.HINT_PLACEHOLER;
   const fiveLettersEmptyHint = `${hidden}${hidden}${hidden}${hidden}${hidden}`;
   const answer = 'ooooo';
@@ -41,10 +42,5 @@ describe('Hints Generator', function() {
   it('should open exactly 2 letter in first hint of 10-letter word', () => {
     const firstHint = generate(fiveLettersEmptyHint + fiveLettersEmptyHint, answer + answer, hintsCount);
     countChars(firstHint, 'o').should.equal(2);
-  });
-
-  it('should open 2 letters if 2 tries only', function () {
-    const hint = generate(fiveLettersEmptyHint, answer, 2);
-    countChars(hint, 'o').should.equal(2);
   });
 });
