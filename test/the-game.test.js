@@ -9,7 +9,12 @@ const MESSAGE_TYPING_DELAY = 1000;
 
 describe('The Game', function () {
   let fakeBot;
-  let fakeQuestions = [{question: 'foo', answer: 'bar'}];
+    let fakeQuestions = [
+      {question: 'foo', answer: 'bar'},
+      {question: 'foo', answer: 'bar'},
+      {question: 'foo', answer: 'bar'},
+      {question: 'foo', answer: 'bar'}
+    ];
   let fakeChat = {
     id: 'fake-chag-id'
   };
@@ -107,5 +112,29 @@ describe('The Game', function () {
 
     game.currentHint.should.equal('•••');
     game.send.should.have.been.calledWith('Подсказка: •••');
+  });
+
+  it('should present winners sorted by score', () => {
+    const game = createGame();
+    game.start(4);
+
+    game.setCurrentPlayer({id: 'player1', username: 'player1'});
+    game.sendNewQuestion();
+    game.checkAnswer({text: fakeQuestions[0].answer});
+    game.sendNewQuestion();
+    game.checkAnswer({text: fakeQuestions[0].answer});
+    game.sendNewQuestion();
+    game.checkAnswer({text: fakeQuestions[0].answer});
+
+    game.setCurrentPlayer({id: 'player2', username: 'player2'});
+
+    game.setCurrentPlayer({id: 'player3', username: 'player3'});
+    game.sendNewQuestion();
+    game.checkAnswer({text: fakeQuestions[0].answer});
+
+    this.sinon.stub(game, 'send').returns(Promise.resolve());
+    game.sendNewQuestion();
+
+    game.send.should.have.been.calledWith(`🎉🎊💋\n\n@player1: 3 очков\n@player3: 1 очков\n@player2: 0 очков\n\n`);
   });
 });
