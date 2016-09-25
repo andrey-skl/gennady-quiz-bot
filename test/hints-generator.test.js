@@ -31,13 +31,6 @@ describe('Hints Generator', function() {
     countChars(hint, 'o').should.equal(2);
   });
 
-  it('should never open last letter', () => {
-    const firstHint = generate(`${hidden}${hidden}`, 'oo', 2);
-    const secondHint = generate(firstHint, answer, hintsCount);
-    const thirdHint = generate(secondHint, answer, hintsCount);
-    countChars(thirdHint, 'o').should.equal(1);
-  });
-
   it('should open exactly 4 letter for third hint', () => {
     const firstHint = generate(fiveLettersEmptyHint, answer, hintsCount);
     const secondHint = generate(firstHint, answer, hintsCount);
