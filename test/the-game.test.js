@@ -2,6 +2,7 @@ require('./chai-setup');
 const sinon = require('sinon');
 
 const Game = require('../lib/the-game');
+const messages = require('../lib/messages');
 
 const HINTS_DELAY = 10000;
 const NEW_QUESTION_DELAY = 5000;
@@ -52,7 +53,7 @@ describe('The Game', function () {
     game.start(3);
     game.sendNewQuestion();
 
-    game.send.should.have.been.calledWith('1. foo');
+    game.send.should.have.been.calledWith(messages.question(1, 'foo'));
   });
 
   it('should ignore /skip after game finish', () => {
@@ -111,7 +112,7 @@ describe('The Game', function () {
     clock.tick(HINTS_DELAY + 1000);
 
     game.currentHint.should.equal('•••');
-    game.send.should.have.been.calledWith('Подсказка: •••');
+    game.send.should.have.been.calledWith(messages.hint('•••', 1));
   });
 
   it('should present winners sorted by score', () => {
