@@ -136,6 +136,6 @@ describe('The Game', function () {
     this.sinon.stub(game, 'send').returns(Promise.resolve());
     game.sendNewQuestion();
 
-    game.send.should.have.been.calledWith(`🎉🎊💋\n\n@player1: 3 очков\n@player3: 1 очков\n@player2: 0 очков\n\n`);
+    game.send.should.have.been.calledWith(`🎉🎊💋\n\n*player1:* 3 очков\n*player3:* 1 очков\n*player2:* 0 очков\n\n`);
   });
 });
