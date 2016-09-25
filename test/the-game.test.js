@@ -112,7 +112,7 @@ describe('The Game', function () {
     clock.tick(HINTS_DELAY + 1000);
 
     game.currentHint.should.equal('•••');
-    game.send.should.have.been.calledWith(messages.hint('•••', 1));
+    game.send.should.have.been.calledWith(messages.hint('•••', fakeQuestions[0].question, 1));
   });
 
   it('should present winners sorted by score', () => {
