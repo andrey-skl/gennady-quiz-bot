@@ -31,6 +31,11 @@ describe('Hints Generator', function() {
     countChars(hint, 'o').should.equal(2);
   });
 
+  it('should open spaces in hint immidiatelly', () => {
+    const firstHint = generate(``, 'o o', 3);
+    firstHint.should.equal(`${hidden} ${hidden}`);
+  });
+
   it('should open exactly 4 letter for third hint', () => {
     const firstHint = generate(fiveLettersEmptyHint, answer, hintsCount);
     const secondHint = generate(firstHint, answer, hintsCount);
