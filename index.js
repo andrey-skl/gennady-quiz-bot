@@ -1,6 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const questionsDatabase = require('./lib/questions-database');
-const addTrollingMessages = require('./lib/trolling-messages');
+const trolling = require('./lib/trolling-messages');
 const botMessagesLogger = require('./lib/bot-messages-logger');
 const commandInterface = require('./lib/command-interface');
 
@@ -17,7 +17,7 @@ console.log('Authorizing and initializing Gennady...');
 bot.getMe()
   .then(me => {
     console.log('Bot has been successfully authorized. Name is', me.first_name);
-    addTrollingMessages(bot);
+    trolling.addTrollingMessages(bot);
     botMessagesLogger(bot);
 
     return Promise.all(config.databases.map(path => questionsDatabase(require.resolve(path))))
