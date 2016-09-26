@@ -136,6 +136,12 @@ describe('The Game', function () {
     this.sinon.stub(game, 'send').returns(Promise.resolve());
     game.sendNewQuestion();
 
-    game.send.should.have.been.calledWith(`🎉🎊💋\n\n*player1:* 3 очков\n*player3:* 1 очков\n*player2:* 0 очков\n\n`);
+    game.send.should.have.been.calledWith(`🏦 *А вот и миллионеры:* 
+
+💰*player1*  очков(а): 3, ответов: 3
+💷*player3*  очков(а): 1, ответов: 1
+💷*player2*  очков(а): 0, ответов: 0
+
+`);
   });
 });
